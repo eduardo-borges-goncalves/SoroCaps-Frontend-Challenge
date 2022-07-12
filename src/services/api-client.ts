@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const axiosApiInstance = axios.create();
 
-axiosApiInstance.defaults.baseURL = "http://3.221.159.196:3322"
+axiosApiInstance.defaults.baseURL = "http://localhost:3300"
 
 axiosApiInstance.interceptors.request.use(
 
