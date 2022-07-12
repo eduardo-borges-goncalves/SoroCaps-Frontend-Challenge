@@ -1,7 +1,7 @@
 export const UsersPage = () => {
   return(
       <div>
-          home
+          USERS
       </div>
   )
 }
