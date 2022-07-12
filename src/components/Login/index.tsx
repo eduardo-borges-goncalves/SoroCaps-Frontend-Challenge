@@ -9,9 +9,8 @@ export const Login = () => {
   const handleAuthUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setErro('')
-    senha.length < 6 ?
-      setErro('Usuário ou senha Inválidos') :
-      login.login(email, senha)
+    setErro('Usuário ou senha Inválidos')
+    // login.login(email, senha)
   }
 
   return (

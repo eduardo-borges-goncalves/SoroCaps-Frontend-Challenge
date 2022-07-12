@@ -1,11 +1,9 @@
 import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom"
-import { useAuthentication } from "../../context"
-import apiClient from "../../services/api-client"
+import apiClient from "../services/api-client"
 
 const useLogin = (setLoginErro: React.Dispatch<React.SetStateAction<string>>) => {
 
-    const { updateAuthData, setIsAuthenticated } = useAuthentication()
     const navigate = useNavigate()
 
     const login = async (userLogin: string, password: string ) => {
@@ -14,11 +12,11 @@ const useLogin = (setLoginErro: React.Dispatch<React.SetStateAction<string>>) =>
             const { access_token, id, name } = response.data
             
             if (access_token) {
-                updateAuthData({ id, access_token, nome })
-                setIsAuthenticated(true)
+                // updateAuthData({ id, access_token, name })
+                // setIsAuthenticated(true)
                 Cookies.set("access_token", access_token, { expires: 365 })
                 Cookies.set("id", id, { expires: 365 })
-                Cookies.set("name", nome, { expires: 365 })
+                Cookies.set("name", name, { expires: 365 })
                 navigate("/");
             } 
             else setLoginErro('Usuário ou senha Inválidos') 
