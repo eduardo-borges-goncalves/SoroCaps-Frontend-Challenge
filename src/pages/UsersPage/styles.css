@@ -1,20 +1,17 @@
-.container-user {
+.container2 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: relative;
-  padding-top: 2rem;
+  padding-top: 4rem;
+  gap: 2rem;
 }
 
 .alert-success {
-
-  
-
-  margin-bottom: 2rem;
-
   width: 300px;
+}
 
-
-
+.form {
+  width: 400px;
 }
