@@ -45,8 +45,7 @@ export const UsersPage = () => {
         </Typography>
         <Form
           onChange={() => setErro('')}
-          name="normal_login"
-          className="login-form"
+          className="form"
           initialValues={{ remember: true }}
           onFinish={(values) => onFinish(values)}
         >
