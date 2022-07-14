@@ -1,9 +1,10 @@
 import axios from "axios"
 import Cookies from "js-cookie";
+import { HOST_API } from "../config";
 
 const axiosApiInstance = axios.create();
 
-axiosApiInstance.defaults.baseURL = "http://localhost:3300"
+axiosApiInstance.defaults.baseURL = HOST_API
 
 axiosApiInstance.interceptors.request.use(
 
