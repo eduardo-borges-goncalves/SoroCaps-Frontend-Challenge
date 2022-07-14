@@ -5,6 +5,7 @@ import { HomePage } from "../pages/HomePage"
 import { LoginPage } from "../pages/LoginPage"
 import { NotFoundPage } from "../pages/NotFoundPage"
 import { ProductsPage } from "../pages/ProductsPage"
+import { CreateSalesOrdersPage } from "../pages/CreateSalesOrdersPage"
 import { SalesOrdersPage } from "../pages/SalesOrdersPage"
 import { UsersPage } from "../pages/UsersPage"
 
@@ -22,6 +23,7 @@ export const Router = () => {
                     <Route path="/products" element={<ProductsPage />} />
 
                     <Route path="/sales-orders" element={<SalesOrdersPage />} />
+                    <Route path="/sales-orders/create" element={<CreateSalesOrdersPage />} />
                 </Route>
 
                 <Route path="*" element={<NotFoundPage />} />

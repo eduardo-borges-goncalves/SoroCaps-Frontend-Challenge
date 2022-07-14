@@ -1,117 +1,208 @@
+import { Button } from "antd";
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import apiClient from "../../services/api-client";
+
+import "./styles.css"
+
 export const SalesOrdersPage = () => {
-  const [erro, setErro] = useState('')
-  const [newProduct, setNewProduct] = useState(false)
+  const [salesOrders, setSalesOrders] = useState([])
+  const [visibleProcess, setVisibleProcess] = useState("process")
+  const [aproved, setAproved] = useState([])
+  const [inProcess, setInProcess] = useState([])
+  console.log(aproved)
 
-  const navigate = useNavigate()
-
-  const onFinish = async (values: any) => {
+  const getSales = async () => {
     try {
-      const response = await apiClient.post("/sales-orders", {
-        clientId: values.clientId,
- 
-        description: values.description,
-        measurmentUnit: values.measurmentUnit,
-        pricePurchase: values.pricePurchase,
-        priceSales: values.priceSales
+      const response = await apiClient.get('/sales-orders')
+      let inProcess: any = [];
+      let aproved: any = []
+      response.data.map((client: any) => {
+        client['sales-orders'].map((saleOrder: any) => {
+          saleOrder.status === "EM PROCESSO" ?
+            inProcess.push(
+              {
+                companyName: client.companyName,
+                ...saleOrder
+              }
+            )
+            :
+            aproved.push(
+              {
+                companyName: client.companyName,
+                ...saleOrder
+              }
+            )
+        });
       })
-      response && setNewProduct(true)
-      setTimeout(() => navigate('/'), 1000)
+
+      setSalesOrders(response.data)
+      setAproved(aproved)
+      setInProcess(inProcess)
     } catch (error) {
-      setErro("Erro ao cadastrar produto. Por favor, tente novamente mais tarde.")
+      window.alert("Ocorreu um erro ao buscar os pedidos de venda. Tente novamente mais tarde.")
     }
   }
 
-  const { Title } = Typography;
+  useEffect(() => { getSales() }, [])
+
   return (
-    <div className="container-user">
-      {
-        newProduct &&
-        <div className="alert-success">
-          <Alert
-            description="Novo Produto cadastrado com sucesso!"
-            type="success"
-            showIcon
-          />
-        </div>
-      }
-      <Typography>
-        <Title> Cadastrar Produto </Title>
-      </Typography>
-      <Form
-        onChange={() => setErro('')}
-        className="form"
-        initialValues={{ remember: true }}
-        onFinish={(values) => onFinish(values)}
-      >
-        <Form.Item
-          name="productCode"
-          rules={[{
-            required: true,
-            message: 'Por favor insira o código do produto',
-            min: 2
-          }]}
-        >
-          <Input placeholder="Código do Produto" />
-        </Form.Item>
-        <Form.Item
-          name="name"
-          rules={[{
-            required: true,
-            message: 'Por favor insira o nome do produto',
-            min: 2
-          }]}
-        >
-          <Input placeholder="Nome" />
-        </Form.Item>
-        <Form.Item
-          name="description"
-          rules={[{
-            required: true,
-            message: 'Por favor insira um descrição',
-            min: 3
-          }]}
-        >
-          <Input placeholder="Descrição" />
-        </Form.Item>
-        <Form.Item
-          name="measurementUnit"
-          rules={[{
-            required: true,
-            message: 'Por favor insira a unidade de medida',
-          }]}
-        >
-          <Input.Password placeholder="Unidade de Medida" />
-        </Form.Item>
-        <Form.Item
-          name="pricePurchase"
-          rules={[{
-            required: true,
-            message: 'Por favor insira o preço de aquisição',
-          }]}
-        >
-          <Input type="number" placeholder="Preço de aquisição" />
-        </Form.Item>
-        <Form.Item
-          name="priceSales"
-          rules={[{
-            required: true,
-            message: 'Por favor insira o preço de venda',
-          }]}
-        >
-          <Input type="number" placeholder="Preço de venda" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
-            Cadastrar Produto
-          </Button>
-        </Form.Item>
-        {
-          erro && <Alert
-            description={erro}
-            type="error"
-            showIcon
-          />}
-      </Form>
-    </div>
+    <div className="container2" >
+      <Link to={"/sales-orders/create"}>
+        <Button type="link" icon={<PlusCircleOutlined />}>
+          Novo Pedido
+        </Button>
+      </Link>
+      <header className="header-so">
+        <nav>
+          <ul>
+            <li onClick={() => setVisibleProcess("process")}>
+              Em processo
+            </li>
+            <li onClick={() => setVisibleProcess("aproved")}>
+              Aprovado
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section>
+        <table>
+          <thead>
+            <tr >
+              <th>
+                Status
+              </th>
+              <th>
+                Cliente
+              </th>
+              <th className="product-code">
+                Produtos
+              </th>
+              <th className="product-quantity">
+                Qnte.
+              </th>
+              <th className="product">
+                Preço de Venda
+              </th>
+              <th className="product">
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              visibleProcess === "process" ?
+                inProcess.map((salesOrder: any) => (
+                  <>
+                    <tr>
+                      <td>
+                        {salesOrder.status}
+                      </td>
+                      <td>
+                        {salesOrder.companyName}
+                      </td>
+                      <td className="product-code">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              Cód:{product.codeProduct}
+                            </span>
+
+                          ))
+                        }
+                      </td>
+                      <td className="product-quantity">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              {product.quantity}
+                            </span>
+                          ))
+                        }
+                      </td>
+                      <td className="product">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              {product.priceSales
+                                .toLocaleString('pt-BR',
+                                  {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                    minimumFractionDigits: 2
+                                  }
+                                )
+                              }
+                            </span>
+                          ))
+                        }
+                      </td>
+                      <td className="action">
+                        <Button type="link">
+                          Aprovar
+                        </Button>
+                      </td>
+                    </tr>
+                  </>
+                ))
+                :
+                aproved.map((salesOrder: any) => (
+                  <>
+                    <tr>
+                      <td>
+                        {salesOrder.status}
+                      </td>
+                      <td>
+                        {salesOrder.companyName}
+                      </td>
+                      <td className="product-code">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              Cód:{product.codeProduct}
+                            </span>
+
+                          ))
+                        }
+                      </td>
+                      <td className="product-quantity">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              {product.quantity}
+                            </span>
+                          ))
+                        }
+                      </td>
+                      <td className="product">
+                        {
+                          salesOrder['product-sales'].map((product: any) => (
+                            <span>
+                              {product.priceSales
+                                .toLocaleString('pt-BR',
+                                  {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                    minimumFractionDigits: 2
+                                  }
+                                )
+                              }
+                            </span>
+                          ))
+                        }
+                      </td>
+                      <td className="action">
+                        <Button type="link">
+                          Aprovar
+                        </Button>
+                      </td>
+                    </tr>
+                  </>
+                ))
+            }
+          </tbody>
+        </table>
+      </section>
+    </div >
   )
 }

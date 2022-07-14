@@ -1,3 +1,8 @@
+import { Alert, Button, Form, Input, Typography } from "antd"
+import { useState } from "react";
+import apiClient from "../../services/api-client";
+import { useNavigate } from "react-router-dom";
+
 export const ProductsPage = () => {
   const [erro, setErro] = useState('')
   const [newProduct, setNewProduct] = useState(false)
@@ -5,12 +10,13 @@ export const ProductsPage = () => {
   const navigate = useNavigate()
 
   const onFinish = async (values: any) => {
+    console.log(values)
     try {
       const response = await apiClient.post("/products", {
         codeProduct: values.codeProduct,
         name: values.name,
         description: values.description,
-        measurmentUnit: values.measurmentUnit,
+        measurementUnit: values.measurementUnit,
         pricePurchase: values.pricePurchase,
         priceSales: values.priceSales
       })
@@ -23,7 +29,7 @@ export const ProductsPage = () => {
 
   const { Title } = Typography;
   return (
-    <div className="container-user">
+    <div className="container2">
       {
         newProduct &&
         <div className="alert-success">
@@ -44,7 +50,7 @@ export const ProductsPage = () => {
         onFinish={(values) => onFinish(values)}
       >
         <Form.Item
-          name="productCode"
+          name="codeProduct"
           rules={[{
             required: true,
             message: 'Por favor insira o código do produto',
@@ -80,7 +86,7 @@ export const ProductsPage = () => {
             message: 'Por favor insira a unidade de medida',
           }]}
         >
-          <Input.Password placeholder="Unidade de Medida" />
+          <Input placeholder="Unidade de Medida" />
         </Form.Item>
         <Form.Item
           name="pricePurchase"
