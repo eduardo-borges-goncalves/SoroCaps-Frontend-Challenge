@@ -12,11 +12,11 @@ const useLogin = () => {
             const { access_token, id, name } = response.data
             
             if (access_token) {
-                // updateAuthData({ id, access_token, name })
-                // setIsAuthenticated(true)
-                Cookies.set("access_token", access_token, { expires: 365 })
-                Cookies.set("id", id, { expires: 365 })
-                Cookies.set("name", name, { expires: 365 })
+                setIsAuthenticated(true)
+                const in1Hour = 1/24;
+                Cookies.set("access_token", access_token, { expires: in1Hour })
+                Cookies.set("id", id, { expires: in1Hour })
+                Cookies.set("name", name, { expires: in1Hour })
                 navigate("/");
             } else erro = 'Usuário ou senha Inválidos'
         } catch (error: any) {

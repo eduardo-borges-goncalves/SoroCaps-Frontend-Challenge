@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import { Layout } from "../components/Layout"
 import { ClientsPage } from "../pages/ClientsPage"
 import { HomePage } from "../pages/HomePage"
 import { LoginPage } from "../pages/LoginPage"
@@ -8,6 +7,7 @@ import { ProductsPage } from "../pages/ProductsPage"
 import { CreateSalesOrdersPage } from "../pages/CreateSalesOrdersPage"
 import { SalesOrdersPage } from "../pages/SalesOrdersPage"
 import { UsersPage } from "../pages/UsersPage"
+import { PrivateRoute } from "./private"
 
 export const Router = () => {
     return (
@@ -15,7 +15,7 @@ export const Router = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 
-                <Route path="/" element={<Layout />} >
+                <Route path="/" element={<PrivateRoute />} >
                     <Route index element={<HomePage />} />
 
                     <Route path="/users" element={<UsersPage />} />
