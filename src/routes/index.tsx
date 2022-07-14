@@ -10,7 +10,7 @@ import { UsersPage } from "../pages/UsersPage"
 import { PrivateRoute } from "./private"
 
 export const Router = () => {
-    return (
+    return (   
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<LoginPage />} />

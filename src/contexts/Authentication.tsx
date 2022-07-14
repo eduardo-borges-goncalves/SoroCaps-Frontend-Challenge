@@ -24,7 +24,8 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> =  ({
   useEffect(() => {
     const getAuthentication = () => {
       try {
-        const access_token =  Cookies.get('access_token')
+        const access_token = Cookies.get('access_token')
+        console.log(access_token)
         access_token && setIsAuthenticated(true)
       } finally { setLoading(false) }
     }

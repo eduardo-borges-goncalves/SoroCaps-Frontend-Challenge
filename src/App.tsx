@@ -1,14 +1,16 @@
 import { Router } from './routes';
 import 'antd/dist/antd.css';
-import { AuthenticationProvider } from './context/Authentication';
+import { useAuthentication } from './contexts/Authentication';
 
 function App() {
+  const { loading } = useAuthentication()
   return (
-    <>
-      <AuthenticationProvider>
+    loading ?
+      <></>
+      :
+      <>
         <Router />
-      </AuthenticationProvider>
-    </>
+      </>
   );
 }
 

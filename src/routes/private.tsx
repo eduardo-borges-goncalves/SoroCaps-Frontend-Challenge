@@ -5,7 +5,9 @@ import { Navigate } from "react-router-dom";
 export const PrivateRoute = () => {
     const { isAuthenticated } = useAuthentication()
 
-    !isAuthenticated ?
-        <Navigate to="/login" replace /> :
-        <Layout />
+    return (
+        !isAuthenticated ?
+            <Navigate to="/login" replace /> :
+            <Layout />
+    )
 }

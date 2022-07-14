@@ -1,9 +1,12 @@
 import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom"
+import { useAuthentication } from "../contexts/Authentication"
 import apiClient from "../services/api-client"
 
 const useLogin = () => {
     const navigate = useNavigate()
+
+    const { setIsAuthenticated } = useAuthentication()
 
     const login = async (userLogin: string, password: string) => {
         let erro = ''

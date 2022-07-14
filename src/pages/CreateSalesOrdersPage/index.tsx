@@ -137,7 +137,6 @@ export const CreateSalesOrdersPage = () => {
                 rules={[{
                   required: true,
                   message: 'Por favor insira a quantidade',
-                  min: 3
                 }]}
               >
                 <Input type="number" placeholder="Quantidade" />

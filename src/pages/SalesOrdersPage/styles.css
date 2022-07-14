@@ -25,7 +25,7 @@ tr  {
 thead > tr {
   background-color: rgb(220, 245, 235);
 }
-
+ 
 tbody > tr{
   transition: all ease-in-out 0.2s;
   border: 1px solid rgba(220, 245, 235, 0.664);
