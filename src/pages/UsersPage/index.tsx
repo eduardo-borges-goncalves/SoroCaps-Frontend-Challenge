@@ -29,7 +29,7 @@ export const UsersPage = () => {
   const { Title } = Typography;
   return (
     <>
-      <div className="container-user">
+      <div className="container2">
         {
           newUser &&
           <div className="alert-success">

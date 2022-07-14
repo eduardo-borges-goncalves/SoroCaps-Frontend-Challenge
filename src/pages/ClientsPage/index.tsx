@@ -19,7 +19,7 @@ export const ClientsPage = () => {
       response && setNewClient(true)
       setTimeout(() => navigate('/'), 1000)
     } catch (error) {
-      setErro("Erro ao cadastrar cliente. Por favpr, tente novamente mais tarde.")
+      setErro("Erro ao cadastrar cliente. Por favor, tente novamente mais tarde.")
     }
   }
 

@@ -15,15 +15,15 @@ export const Header = () => {
         <Link to="/"/>
         Home Page
       </Menu.Item>
-      <Menu.Item  >
+      <Menu.Item key="sales-order" >
         <Link to="/sales-orders"/>
         Pedidos de Venda
       </Menu.Item>
-      <Menu.Item  >
+      <Menu.Item key="products">
         <Link to="/products"/>
         Produtos
       </Menu.Item>
-      <Menu.Item >
+      <Menu.Item key="clients" >
         <Link to="/clients"/>
         Clientes
       </Menu.Item>
