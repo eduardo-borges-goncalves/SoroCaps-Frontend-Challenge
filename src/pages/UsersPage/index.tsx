@@ -28,9 +28,8 @@ export const UsersPage = () => {
 
   const { Title } = Typography;
   return (
-    <>
       <div className="container2">
-        {
+       {
           newUser &&
           <div className="alert-success">
             <Alert
@@ -98,6 +97,5 @@ export const UsersPage = () => {
             />}
         </Form>
       </div>
-    </>
   )
 }
