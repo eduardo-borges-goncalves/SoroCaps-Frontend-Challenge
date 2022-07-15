@@ -19,6 +19,7 @@ export const CreateSalesOrdersPage = () => {
   const navigate = useNavigate()
 
   const onFinish = async (values: any) => {
+    setErro('');
     const products = productsSales.map((i, index )=> {
       return {
         codeProduct: values[`codeProduct${index}`], 
@@ -33,8 +34,10 @@ export const CreateSalesOrdersPage = () => {
       })
       response && setNewSaleOrder(true)
       setTimeout(() => navigate('/'), 1000)
-    } catch (error) {
-      setErro("Erro ao cadastrar produto. Por favor, tente novamente mais tarde.")
+    } catch (error: any) {
+      if (error.response.status === 409) 
+        setErro(error.response.data)
+      else setErro("Erro ao cadastrar o pedido de venda. Por favor, tente novamente mais tarde.")
     }
   }
 
@@ -123,7 +126,7 @@ export const CreateSalesOrdersPage = () => {
                     (option!.children as unknown as string).toLowerCase().includes(input.toLowerCase())
                   }
                 >
-                  {
+                  {   
                     products.map(product => (
                       <Option value={String(product.codeProduct)} key={product.codeProduct}>
                         {product.name}
