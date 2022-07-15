@@ -18,8 +18,10 @@ export const ClientsPage = () => {
       })
       response && setNewClient(true)
       setTimeout(() => navigate('/'), 1000)
-    } catch (error) {
-      setErro("Erro ao cadastrar cliente. Por favor, tente novamente mais tarde.")
+    } catch (error:any) {
+      if (error.response.status === 409)
+        setErro(error.response.data)
+      else setErro("Erro ao cadastrar cliente. Por favor, tente novamente mais tarde.")
     }
   }
 
